@@ -32,4 +32,4 @@ def heap_sort(A):
     n = len(A)
     for i in range(0, n - 1):
         A[0], A[n - i - 1] = A[n - i - 1], A[0]
-        heapify(A, n - 1, 0)
+        heapify(A, n - 1 - i, 0) #tutaj na wykladzie bylo po prostu n-1

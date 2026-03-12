@@ -1,4 +1,4 @@
-#Złozoność tego algorytmu jest (H)(nlogn)
+#Złozoność tego algorytmu jest O(h)(nlogn)
 def merge(A, B, p, q, r):
     i = k = p
     j = q
@@ -22,7 +22,7 @@ def merge(A, B, p, q, r):
         j += 1
         k += 1
 
-    for t in range(p, r):
+    for t in range(p, r): # tutaj na wykladzie bylo r-1
         A[t] = B[t]
 
 

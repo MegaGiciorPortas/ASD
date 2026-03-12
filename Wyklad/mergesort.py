@@ -22,7 +22,7 @@ def merge(A, B, p, q, r):
         j += 1
         k += 1
 
-    for t in range(p, r): # tutaj na wykladzie bylo r-1
+    for t in range(p, r):
         A[t] = B[t]
 
 

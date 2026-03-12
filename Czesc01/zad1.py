@@ -240,6 +240,8 @@ def hamsters(array, amount):
             result = period
             left = period + 1
         else:
+            if result != 0:
+                break
             right = period - 1
 
     return result

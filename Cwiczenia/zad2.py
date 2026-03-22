@@ -23,7 +23,7 @@ w O(nlogk)
 """
 
 
-class Node():
+class Node:
     def __init__(self, value):
         self.val = value
         self.next = None
@@ -88,18 +88,19 @@ def mergesort(A):
 
 
 # 2)
-def parent(i): return (i - 1) // 2
+def parrent(i):
+    return (i - 1) // 2
 
 
 def wstawianie_do_kopca(T, value):
     T.append(value)
     i = len(T) - 1
 
-    while i > 0 and T[parent(i)] < T[i]:
+    while i > 0 and T[parrent(i)] < T[i]:
         # Zamieniamy miejscami z rodzicem
-        T[parent(i)], T[i] = T[i], T[parent(i)]
+        T[parrent(i)], T[i] = T[i], T[parrent(i)]
         # Przechodzimy wyżej
-        i = parent(i)
+        i = parrent(i)
 
 
 # 3)
@@ -117,7 +118,7 @@ def heapify_chaotyczne(tablica: list[int], n: int, i: int) -> None:
 
 def build_heap_chaotyczne(tablica: list[int]) -> None:
     n = len(tablica)
-    for i in range(parent(n - 1), -1, -1):
+    for i in range(parrent(n - 1), -1, -1):
         heapify_chaotyczne(tablica, n, i)
 
 
@@ -132,30 +133,30 @@ def sortowanie_chaotyczne(tablica: list[int]) -> list[int]:
 
 def tablica_k_chaotyczna(tablica: list[int], k: int) -> None:
     n = len(tablica)
-    if n == 0: return
+    if n == 0:
+        return
 
-    rozmiar_kopca = min(k+1,n)
+    rozmiar_kopca = min(k + 1, n)
     kopiec = tablica[:rozmiar_kopca]
     build_heap_chaotyczne(kopiec)
 
     indeks = 0
 
-    for i in range(rozmiar_kopca,n):
+    for i in range(rozmiar_kopca, n):
         tablica[indeks] = kopiec[0]
         indeks += 1
 
         kopiec[0] = tablica[i]
 
-        heapify_chaotyczne(kopiec,rozmiar_kopca,0)
+        heapify_chaotyczne(kopiec, rozmiar_kopca, 0)
 
     while rozmiar_kopca > 0:
         tablica[indeks] = kopiec[0]
         indeks += 1
 
-        kopiec[0] = kopiec[rozmiar_kopca-1]
+        kopiec[0] = kopiec[rozmiar_kopca - 1]
         rozmiar_kopca -= 1
-        heapify_chaotyczne(kopiec,rozmiar_kopca,0)
-
+        heapify_chaotyczne(kopiec, rozmiar_kopca, 0)
 
 
 # 4)
@@ -165,7 +166,7 @@ def gasieinca_odejmowanie(T, x):
     i = 0
     while j < N:
         if T[j] - T[i] == x:
-            return i,j
+            return i, j
         elif T[j] - T[i] < x:
             j += 1
         else:
@@ -178,7 +179,7 @@ def gasienica_dodawanie(T, x):
     i = 0
     j = N - 1
 
-    while i < j :
+    while i < j:
         if T[i] + T[j] == x:
             return i, j
         elif T[i] + T[j] < x:
@@ -240,13 +241,12 @@ def ile_inwersji(T):
 
 
 # 8)
-def parent(i): return (i - 1) // 2
+def right(i):
+    return (i * 2) + 2
 
 
-def right(i): return (i * 2) + 2
-
-
-def left(i): return (i * 2) + 1
+def left(i):
+    return (i * 2) + 1
 
 
 def heapify(A, n, i):
@@ -264,7 +264,7 @@ def heapify(A, n, i):
 
 def build_heap(A):
     n = len(A)
-    for i in range(parent(n - 1), -1, -1):
+    for i in range(parrent(n - 1), -1, -1):
         heapify(A, n, i)
 
 

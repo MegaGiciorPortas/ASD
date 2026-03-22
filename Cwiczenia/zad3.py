@@ -68,9 +68,10 @@ def find_k_ty(A, p, r, k):
 
 
 # Metoda 2
-# binsearch, sprawdzamy ile wody jest potrzebne aby do tego poziomu ktory znalezlismy 
+# binsearch, sprawdzamy ile wody jest potrzebne aby do tego poziomu ktory znalezlismy
 
 # 4)
+
 
 # 5)
 # a)
@@ -134,7 +135,7 @@ def counting_sort_str(tablica: list[str], ind: int) -> list[str]:
     return res
 
 
-def sortowanie_n_slow(tablica: list[str]) -> list[str]:
+def sortowanie_n_slow(tablica: list[str]):
     if not tablica:
         return []
 
@@ -150,3 +151,6 @@ def sortowanie_n_slow(tablica: list[str]) -> list[str]:
         aktywne_slowa.extend(kubelki[i])
 
         aktywne_slowa = counting_sort_str(aktywne_slowa, i)
+
+    for i in range(len(aktywne_slowa)):
+        tablica[i] = aktywne_slowa[i]

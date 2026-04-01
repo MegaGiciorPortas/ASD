@@ -1,20 +1,25 @@
+"""
+Złożoność obliczeniowa: O(d*(n+k))
+Złożoność pamięciowa: O(n+k)
+"""
+
 from math import log2, ceil
 
 
-def countingsort_radixInt(A: list[int], expo: int):
+def countingsort_radixInt(A: list[int], indeks: int) -> None:
     n = len(A)
     res = [0] * n
     cnt = [0] * 10
 
     for i in range(n):
-        ind = (A[i] // expo) % 10
+        ind = (A[i] // indeks) % 10
         cnt[ind] += 1
 
     for i in range(1, 10):
         cnt[i] += cnt[i - 1]
 
     for i in range(n - 1, -1, -1):
-        ind = (A[i] // expo) % 10
+        ind = (A[i] // indeks) % 10
         cnt[ind] -= 1
         res[cnt[ind]] = A[i]
 
@@ -22,32 +27,34 @@ def countingsort_radixInt(A: list[int], expo: int):
         A[i] = res[i]
 
 
-# sortowanie po cyfrach
-def radix_sort_int(A: list[int]):
+def radix_sort_int(A: list[int]) -> list[int]:
     B = [i for i in A]
 
-    bound = max(B)
-    expo = 1
-    while bound // expo >= 1:
-        countingsort_radixInt(B, expo)
-        expo *= 10
+    maksymalny = max(B)
+    indeks = 1
+    while maksymalny // indeks >= 1:
+        countingsort_radixInt(B, indeks)
+        indeks *= 10
     return B
 
 
-def countingsort_radixChar(A: list[str], ind: int):
+def countingsort_radixStr(A: list[str], indeks: int) -> None:
     n = len(A)
-    res = [''] * n
+    res = ["" for _ in range(n)]
     cnt = [0] * 128
 
     for i in range(n):
-        p = ord(A[i][ind])
+        if indeks < len(A[i]):
+            p = ord(A[i][indeks])
+        else:
+            p = 0
         cnt[p] += 1
 
     for i in range(1, 128):
         cnt[i] += cnt[i - 1]
 
     for i in range(n - 1, -1, -1):
-        p = ord(A[i][ind])
+        p = ord(A[i][indeks])
         cnt[p] -= 1
         res[cnt[p]] = A[i]
 
@@ -55,25 +62,22 @@ def countingsort_radixChar(A: list[str], ind: int):
         A[i] = res[i]
 
 
-# sortowanie po kolenych znakach
-def radix_sort_str(A: list[str]):
-    B = [a for a in A]
+def radix_sort_string(A: list[str]) -> list[str]:
+    B = [i for i in A]
     max_len = max([len(a) for a in B]) - 1
     while max_len > -1:
-        countingsort_radixChar(B, max_len)
+        countingsort_radixStr(B, max_len)
         max_len -= 1
     return B
 
 
-def countingsort_radixBIT(A: list[int], bit: int):
+def countingsort_radixBit(A: list[int], bit: int) -> None:
     n = len(A)
     res = [0] * n
-    cnt = [0] * 2  # mozliwosc w bitach to jest 0 lub 1
-
+    cnt = [0] * 2
     for i in range(n):
         ind = (A[i] >> bit) & 1
         cnt[ind] += 1
-
     cnt[1] += cnt[0]
 
     for i in range(n - 1, -1, -1):
@@ -85,14 +89,13 @@ def countingsort_radixBIT(A: list[int], bit: int):
         A[i] = res[i]
 
 
-# sortowanie po bitach liczb
-def radix_sort_bit(A: list[int]):
+def radix_sort_bit(A: list[int]) -> list[int]:
     max_num = max(A)
     B = [a for a in A]
 
     max_bits = ceil(log2(max_num))
     bit = 0
     while bit <= max_bits:
-        countingsort_radixBIT(B, bit)
+        countingsort_radixBit(B, bit)
         bit += 1
     return B

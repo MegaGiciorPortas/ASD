@@ -20,6 +20,7 @@ def random_partition(T: list[int], p: int, r: int) -> int:
     return x
 
 
+# wersja Lomuto
 def partition(T: list[int], p: int, r: int) -> int:
     x = T[r]
     i = p - 1
@@ -28,6 +29,26 @@ def partition(T: list[int], p: int, r: int) -> int:
             i += 1
             T[i], T[j] = T[j], T[i]
     return i
+
+
+# wersja Haore'a
+def partition2(T: list[int], p: int, r: int) -> int:
+    i = p - 1
+    j = r + 1
+    pivot = T[randint(p, r)]
+    while True:
+        i += 1
+        while T[i] < pivot:
+            i += 1
+
+        j -= 1
+        while T[j] > pivot:
+            j -= 1
+
+        if i < j:
+            T[i], T[j] = T[j], T[i]
+        else:
+            return j
 
 
 def qsort(T: list[int], p: int, r: int) -> None:

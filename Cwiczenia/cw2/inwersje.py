@@ -7,8 +7,6 @@ def merge(T, B, p, q, r):
     j = q
     inwersje = 0
 
-    #  0  1  2  3    4  5
-    # [] [] [] | [] [] [] r = 6
     while i < q and j < r:
         if T[i] > T[j]:
             inwersje += q - i

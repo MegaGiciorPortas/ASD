@@ -1,3 +1,6 @@
+# O(V+E)
+
+
 def DFS(G):
     def DFSvisit(G, u):
         nonlocal time

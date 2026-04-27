@@ -1,6 +1,7 @@
 from collections import deque
 
 
+# O(V+E)
 def BFS(G: list[list[int]], s: int):
     N = len(G)
     Q = deque()
@@ -18,5 +19,6 @@ def BFS(G: list[list[int]], s: int):
             if not visited[v]:
                 visited[v] = True
                 d[v] = d[u] + 1
+                Q.append(v)
 
     return d, visited, parent

@@ -1,4 +1,3 @@
-# to coś dziala tylko dla grafow skierowanych i jest to O(v+E)
 def euler(G):
     n = len(G)
     idx = [0 for _ in range(n)]

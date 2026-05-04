@@ -18,7 +18,7 @@ def main_function(G: list[list[tuple[int, int]]], start: int, meta: int):
 
         for cost, v in G[u]:
             aktualny_koszt = cost if kierowca == 0 else 0
-            # jezeli jedzie kierowca A to koszt sie liczy, natomiast jezeli jedzie kierowca B to koszt nie ma znaczenia:w
+            # jezeli jedzie kierowca A to koszt sie liczy, natomiast jezeli jedzie kierowca B to koszt nie ma znaczenia
 
             nastepny_kierowca = (kierowca + 1) % 2
 

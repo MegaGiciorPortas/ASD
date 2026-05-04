@@ -1,44 +1,61 @@
 from math import log
 
 
-def main_function(G: list[list[tuple[int, int]]]):
-    NG: list[list[tuple[float, int]]] = []
-    n = len(G)
+# tablica n*n jezeli jest tam wartosc -1 to wtedy nie istnieje wymiana
+def money_maker(table: list[list[float]]):
+    n = len(table)
+    graph: list[list[tuple[int, float]]] = [[] for _ in range(n + 1)]
+
     for i in range(n):
-        NG.append([])
-        for cost, v in G[i]:
-            NG[i].append((-log(cost), v))
+        for j in range(n):
+            if i == j or table[i][j] == -1:
+                continue
+            graph[i].append((j, -log(table[i][j])))
 
-    def bellman_ford(start: int):
-        n = len(G)
-        dist: list[int | float] = [0 for _ in range(n)]
+    start = n
+    for i in range(n):
+        graph[start].append((i, 0))
 
-        for _ in range(n - 1):
-            changed = False
+    dist = [float("inf")] * (n + 1)
+    dist[start] = 0
+    parent: list[int] = [-1] * (n + 1)
 
-            for vert in range(n):
-                if dist[vert] == float("inf"):
-                    continue
-
-                for cost, v in NG[vert]:
-                    if dist[vert] + cost < dist[v]:
-                        dist[v] = dist[vert] + cost
-                        changed = True
-
-            if not changed:
-                break
-
+    for _ in range(n):
         changed = False
-        for vert in range(n):
-            for cost, v in NG[vert]:
-                if dist[vert] + cost < dist[v]:
+        for vert in range(n + 1):
+            for child, cost in graph[vert]:
+                if dist[child] > cost + dist[vert]:
+                    dist[child] = cost + dist[vert]
+                    parent[child] = vert
                     changed = True
+        if not changed:
+            break
 
-            if changed:
+    cycle_node = -1
+    for vert in range(n + 1):
+        for child, cost in graph[vert]:
+            if dist[child] > cost + dist[vert]:
+                cycle_node = child
                 break
 
-        if changed:
-            print("Cykl ujemny w grafie")
-            return True
+    if cycle_node == -1:
+        return False, []
 
-        return False
+    for _ in range(n + 1):
+        cycle_node = parent[cycle_node]
+
+    cycle: list[int] = []
+    curr = cycle_node
+    while True:
+        cycle.append(curr)
+        curr = parent[curr]
+        if curr == cycle_node:
+            break
+    cycle.append(cycle_node)
+
+    return True, cycle
+
+
+table = [[1.0, 0.25], [4.10, 1.0]]
+
+print(money_maker(table))
